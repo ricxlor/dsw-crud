@@ -9,12 +9,13 @@
 ## Checklist do dia
 
 - [ ] Notebook carregado + carregador na mochila
-- [ ] Testar **sem internet**: `docker compose up -d` e abrir http://localhost:8080
-- [ ] Banco "limpo" (5 alunos de exemplo): `docker compose down -v && docker compose up -d`
+- [ ] Levar o `CRUD_Recuperacao_Samuel_Henriques.zip` no pendrive (e no e-mail, de reserva) e extrair numa pasta
+- [ ] Testar **sem internet**: ligar o **MySQL** no painel do XAMPP, dar dois cliques no `rodar.bat` (Enter 3 vezes) e abrir http://localhost:8080
+- [ ] Banco "limpo" (5 alunos de exemplo): fechar a janela do `rodar.bat`, abrir o terminal na pasta do projeto e rodar `rodar.bat --recriar`
 - [ ] Editor aberto com os 6 arquivos em abas, **na ordem**: `conexao.php`, `index.php`, `cadastrar.php`, `editar.php`, `atualizar.php`, `excluir.php`
 - [ ] Fonte do editor aumentada (Ctrl + `+`) para o professor enxergar
 - [ ] Números de linha visíveis no editor
-- [ ] Plano B: se o computador for do laboratório com XAMPP, levar o projeto num pendrive e seguir a "Opção 2" do README
+- [ ] Plano B: se o `rodar.bat` der erro, seguir a "Opção 3 — XAMPP" do README (copiar a pasta para `C:\xampp\htdocs`, importar o `banco.sql` no phpMyAdmin e ajustar usuário/senha no `conexao.php`). Nesse caso o endereço muda para http://localhost/CRUD_Recuperacao_Samuel_Henriques/ (use-o no lugar de `localhost:8080` nas demonstrações)
 
 ---
 

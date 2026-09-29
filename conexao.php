@@ -1,10 +1,17 @@
 <?php
 // Dados de acesso ao banco
-// Docker: host 'db', senha 'root' | XAMPP: host 'localhost', senha ''
-$host    = 'db';
-$usuario = 'root';
-$senha   = 'root';
-$banco   = 'crud_recuperacao';
+if (getenv('DB_HOST') !== false) {
+    // Definidos por variáveis de ambiente: docker-compose.yml ou scripts rodar.sh / rodar.bat
+    $host    = getenv('DB_HOST');
+    $usuario = getenv('DB_USER') ?: 'root';
+    $senha   = getenv('DB_PASS') ?: ''; // sem DB_PASS = banco sem senha
+} else {
+    // Padrão: MariaDB instalado na máquina (usuário criado conforme o README)
+    $host    = 'localhost';
+    $usuario = 'crud';
+    $senha   = 'root';
+}
+$banco = 'crud_recuperacao';
 
 // Desde o PHP 8.1 o mysqli lança exceções por padrão.
 // Desligamos isso para tratar os erros manualmente com connect_errno.

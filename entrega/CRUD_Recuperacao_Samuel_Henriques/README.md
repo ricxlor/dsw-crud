@@ -11,12 +11,26 @@ Sistema web de cadastro de alunos com as quatro operações do CRUD: **INSERT, S
 | Aluno | Samuel Henriques de Alarcão Fernandes |
 | Matrícula | 20231080030094 |
 
+## Requisitos da atividade
+
+| # | Requisito | Onde está |
+|---|---|---|
+| 1 | Conexão OO com `new mysqli()` | `conexao.php` |
+| 2 | Tratamento de falha com `connect_errno` | `conexao.php` |
+| 3 | Prepared Statements em **todas** as operações | `index.php`, `cadastrar.php`, `editar.php`, `atualizar.php`, `excluir.php` |
+| 4 | `htmlspecialchars()` em **todas** as saídas | `index.php`, `editar.php`, `mensagem.php` |
+| 5 | Exclusão somente via POST | `excluir.php` (recusa GET) |
+| 6 | `confirm()` antes de excluir | `index.php` (`onsubmit` do formulário de exclusão) |
+| 7 | Formulário semântico (`label for` + `name`) | `index.php`, `editar.php` |
+| 8 | "Registro não encontrado" para ID inexistente | `editar.php`, `atualizar.php`, `excluir.php` |
+| 9 | Mensagens de sucesso/erro | `mensagem.php`, incluído em `index.php` e `editar.php` |
+| 10 | Documentação | `README.md` |
+
 ## Tecnologias
 
 - PHP 8.3 com a extensão **mysqli** (orientada a objetos)
 - MySQL 8.4
 - HTML5, CSS e JavaScript (apenas `confirm()`)
-- Docker e Docker Compose (opcional, para rodar o ambiente)
 
 ## Estrutura do projeto
 
@@ -31,8 +45,9 @@ projeto/
 ├── mensagem.php        → Exibe as mensagens de sucesso/erro
 ├── estilo.css          → Estilos da página
 ├── banco.sql           → Script de criação do banco e dados de exemplo
-├── Dockerfile          → Imagem PHP + Apache com mysqli
-├── docker-compose.yml  → Sobe PHP, MySQL e phpMyAdmin
+├── preparar_banco.php  → Cria o banco a partir do banco.sql (usado pelos scripts)
+├── rodar.bat           → Script para rodar no Windows (PHP/XAMPP + MySQL)
+├── rodar.sh            → Script para rodar no Linux/macOS (PHP + MySQL/MariaDB)
 └── README.md           → Esta documentação
 ```
 
@@ -52,34 +67,56 @@ O `banco.sql` cria o banco, a tabela e insere 5 alunos de exemplo.
 
 ## Como executar
 
-### Opção 1 — Docker
+### Opção 1 — Scripts automáticos (mais fácil)
 
-Na pasta do projeto:
+Usa o PHP e o MySQL (ou MariaDB) que já estão instalados no computador. O script cria o banco na primeira vez e sobe o sistema.
 
+**Windows (ex.: XAMPP):**
+1. Abra o painel do XAMPP e clique em **Start** no **MySQL** (o Apache não é necessário).
+2. Dê dois cliques em `rodar.bat`.
+3. Responda às perguntas; no XAMPP basta apertar **Enter** três vezes (host `localhost`, usuário `root`, sem senha).
+4. Acesse http://localhost:8080. Para parar, feche a janela ou aperte **Ctrl+C**.
+
+**Linux:**
 ```bash
-docker compose up -d
+./rodar.sh
 ```
+Informe o host, o usuário e a senha do MySQL e acesse http://localhost:8080.
 
-| Serviço | Endereço |
-|---|---|
-| Sistema | http://localhost:8080 |
-| phpMyAdmin | http://localhost:8081 (usuário `root`, senha `root`) |
+Observações:
+- Se o banco `crud_recuperacao` já existir, os dados são mantidos. Para apagar e recriar com os alunos de exemplo: `rodar.bat --recriar` ou `./rodar.sh --recriar`.
+- Se a porta 8080 estiver ocupada, escolha outra: `set PORTA=8090` antes do `rodar.bat` (Windows) ou `PORTA=8090 ./rodar.sh` (Linux).
+- Se aparecer "PHP não encontrado", instale o XAMPP em `C:\xampp` (o script o encontra sozinho) ou adicione o PHP ao PATH.
 
-O `banco.sql` é executado automaticamente na primeira vez. Para apagar o banco e recriá-lo a partir do script:
+### Opção 2 — PHP e MariaDB instalados no Linux
 
-```bash
-docker compose down -v && docker compose up -d
-```
+1. Instale os pacotes:
+   ```bash
+   sudo apt install php-cli php-mysql mariadb-server
+   ```
+2. Crie o banco e um usuário para o sistema (o `root` do MariaDB só entra via `sudo`):
+   ```bash
+   sudo mysql < banco.sql
+   sudo mysql -e "CREATE USER IF NOT EXISTS 'crud'@'localhost' IDENTIFIED BY 'root';
+   GRANT ALL PRIVILEGES ON crud_recuperacao.* TO 'crud'@'localhost';"
+   ```
+3. Na pasta do projeto, inicie o servidor embutido do PHP:
+   ```bash
+   php -S localhost:8080
+   ```
+4. Acesse http://localhost:8080
 
-### Opção 2 — XAMPP
+O `conexao.php` já usa `localhost` / `crud` / `root` por padrão; os scripts `rodar.bat` / `rodar.sh` substituem esses valores pelos dados digitados.
+
+### Opção 3 — XAMPP
 
 1. Copie a pasta do projeto para `C:\xampp\htdocs\` (ou `/opt/lampp/htdocs/` no Linux).
 2. Inicie o **Apache** e o **MySQL** no painel do XAMPP.
 3. Abra http://localhost/phpmyadmin, vá em **Importar** e selecione o `banco.sql`.
-4. No `conexao.php`, altere o host e a senha:
+4. No `conexao.php`, no bloco `else`, altere o usuário e a senha padrão:
    ```php
-   $host  = 'localhost';
-   $senha = '';
+   $usuario = 'root';
+   $senha   = '';
    ```
 5. Acesse http://localhost/nome-da-pasta/
 

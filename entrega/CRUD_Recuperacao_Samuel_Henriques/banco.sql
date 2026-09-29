@@ -22,8 +22,8 @@ CREATE TABLE alunos (
 
 -- Registros de exemplo para a demonstração
 INSERT INTO alunos (nome, email, curso) VALUES
-    ('Ana Souza',       'ana.souza@email.com',       'Análise e Desenvolvimento de Sistemas'),
-    ('Bruno Lima',      'bruno.lima@email.com',      'Licenciatura em Química'),
-    ('Carla Mendes',    'carla.mendes@email.com',    'Análise e Desenvolvimento de Sistemas'),
-    ('Diego Ferreira',  'diego.ferreira@email.com',  'Engenharia Elétrica'),
-    ('Eduarda Rocha',   'eduarda.rocha@email.com',   'Técnico em Informática');
+    ('Manuela Paccelli',       'manuela.paccelli@email.com',       'Análise e Desenvolvimento de Sistemas'),
+    ('Samuel Alarcão',      'samuel.alarcao@email.com',      'Arquitetura de Software'),
+    ('Marcelo Nascimento',    'marcelo.nascimento@email.com',    'Análise e Desenvolvimento de Sistemas'),
+    ('Luisa Coimbra',  'luisa.coimbra@email.com',  'Engenharia Elétrica'),
+    ('Marcela Meireles',   'marcela.meireles@email.com',   'Técnico em Informática');
