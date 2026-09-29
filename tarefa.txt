@@ -1,0 +1,197 @@
+Atividade de Recuperação - CRUD com INSERT, SELECT, UPDATE e DELETE
+
+Identificação
+Item	Descrição
+Disciplina	Desenvolvimento de Sistemas para Web
+Professor	Wendell Bento Geraldes
+Diário	19852 - DPAA-L.0166
+Câmpus	Luziânia - IFG
+Ano/Período	2026/1
+Tema	Recuperação - CRUD com INSERT, SELECT, UPDATE e DELETE
+Peso da Entrega	3 (30%)
+Peso da Apresentação Oral	7 (70%)
+
+Objetivo
+Oferecer aos estudantes com nota final inferior a 6,0 uma oportunidade de recuperar a aprendizagem e melhorar o desempenho na disciplina, por meio de uma atividade prática que retoma todos os conteúdos essenciais do CRUD - INSERT, SELECT, UPDATE e DELETE - com segurança contra SQL Injection e boas práticas de desenvolvimento web.
+
+Critérios de Participação
+Poderão participar da recuperação os alunos que:
+Obtiveram nota final inferior a 6,0 na atividade prática "Update e Delete";
+Não realizaram a avaliação oral (nota oral = 0,00);
+Desejam recuperar a aprendizagem e melhorar a nota;
+Têm frequência mínima de 75% (ou estão em processo de regularização).
+Alunos com frequência inferior a 75% devem regularizar a situação antes de participar.
+
+Cronograma
+Etapa	Data	Descrição
+Lançamento da atividade	18/09/2026	Divulgação no Moodle
+Entrega do código	25/09/2026	Upload no Moodle
+Apresentação oral	02/10/2026	Individual, em sala
+Divulgação das notas	09/10/2026	No Moodle
+
+O que o aluno deve fazer
+
+Parte 1 - Entrega do Código (Peso 3)
+O aluno deverá desenvolver um sistema CRUD completo, aplicando obrigatoriamente as seguintes operações:
+#	Operação	O que fazer
+1	INSERT (Create)	Cadastrar novos registros via formulário POST
+2	SELECT (Read)	Listar e filtrar registros com WHERE ... LIKE '%termo%'
+3	UPDATE (Update)	Editar registros com formulário pré-preenchido
+4	DELETE (Delete)	Excluir registros via POST com confirmação
+
+Requisitos técnicos obrigatórios
+#	Requisito	O que fazer
+1	Conexão OO	Usar new mysqli() orientado a objetos
+2	connect_errno	Tratar falhas de conexão
+3	Prepared Statements	Usar prepare() + bind_param() em TODAS as operações
+4	htmlspecialchars()	Aplicar em TODAS as saídas (proteção XSS)
+5	Exclusão via POST	Nunca usar GET para exclusão
+6	Confirmação	Usar confirm() antes de excluir
+7	Formulário semântico	Usar label for="" + name
+8	Tratamento de ID inexistente	Exibir mensagem "Registro não encontrado"
+9	Feedback ao usuário	Exibir mensagens de sucesso/erro
+10	README.md	Documentar o projeto
+Estrutura mínima esperada
+projeto/
+├── conexao.php      → Conexão com banco (mysqli OO)
+├── index.php        → Listagem + busca
+├── cadastrar.php    → INSERT
+├── editar.php       → Carregar dados para edição
+├── atualizar.php    → UPDATE
+├── excluir.php      → DELETE
+├── banco.sql        → Script de criação do banco
+└── README.md        → Documentação
+Critérios de avaliação da entrega (0 a 10)
+Critério	Peso	Descrição
+INSERT funcional	15%	Cadastro com Prepared Statement
+SELECT funcional	20%	Listagem + filtro com LIKE
+UPDATE funcional	20%	Edição com formulário pré-preenchido
+DELETE funcional	15%	Exclusão via POST + confirm()
+Segurança (SQL Injection)	15%	Prepared Statements em TODAS as operações
+Segurança (XSS)	10%	htmlspecialchars() em todas as saídas
+Documentação	5%	README.md completo
+
+Parte 2 - Apresentação Oral (Peso 7)
+O aluno deverá demonstrar o sistema funcionando e explicar as decisões técnicas tomadas, respondendo às seguintes perguntas:
+
+Bloco 1 - Demonstração Prática (4 perguntas)
+#	Pergunta	Pontos
+1	Cadastre um novo registro no sistema	0,5
+2	Liste e filtre os registros cadastrados	0,5
+3	Edite um registro existente	0,5
+4	Exclua um registro com confirmação	0,5
+
+Bloco 2 - Segurança (3 perguntas)
+#	Pergunta	Pontos
+5	Como seu sistema se protege contra SQL Injection?	0,5
+6	O que aconteceria se alguém digitasse <script>alert('hack')</script> no campo de nome?	0,5
+7	Por que você usou POST para exclusão em vez de GET?	0,5
+
+Bloco 3 - Funcionalidades (3 perguntas)
+#	Pergunta	Pontos
+8	Explique o caminho completo desde o clique em "Editar" até a atualização no banco	0,5
+9	Como você preenche o formulário de edição com os dados do banco?	0,5
+10	Como você confirma a exclusão antes de apagar o registro?	0,5
+
+Bloco 4 - Código e Boas Práticas (3 perguntas)
+#	Pergunta	Pontos
+11	Mostre no código onde você usa Prepared Statement e explique os ?	0,5
+12	O que acontece se o usuário tentar atualizar um registro que não existe?	0,5
+13	Aponte no código onde você faz a conexão com o banco e como trata erros	0,5
+
+Bloco 5 - Perguntas Específicas (2 perguntas)
+#	Pergunta	Pontos
+14	Pergunta específica sobre o código do aluno	0,5
+15	Pergunta específica sobre o código do aluno	0,5
+
+Bloco 6 - Recuperação (Bônus)
+#	Pergunta	Pontos
+16	O que é SQL Injection e como evitar?	+0,5
+17	Qual a diferença entre mysqli_query() e mysqli_prepare()?	+0,5
+18	Cite 3 boas práticas que você aplicou no seu sistema	+0,5
+Total: até 10,0 pontos (7,5 base + 2,5 bônus)
+
+Cálculo da Nota Final de Recuperação
+NOTA FINAL = (Nota da Entrega × 0,3) + (Nota da Oral × 0,7)
+
+Exemplos práticos
+Entrega	Oral	Cálculo	Nota Final	Situação
+10,0	0,0	(10×0,3)+(0×0,7)	3,00	Reprovado
+10,0	5,0	(10×0,3)+(5×0,7)	6,50	Aprovado
+10,0	7,0	(10×0,3)+(7×0,7)	7,90	Aprovado
+8,0	8,0	(8×0,3)+(8×0,7)	8,00	Aprovado
+8,0	5,0	(8×0,3)+(5×0,7)	5,90	Reprovado
+5,0	10,0	(5×0,3)+(10×0,7)	8,50	Aprovado
+
+Observação: a nota oral é decisiva. Sem ela, a aprovação é matematicamente impossível para a maioria dos alunos.
+
+Rubrica de Avaliação da Oral
+Critério	Excelente (9-10)	Bom (7-8)	Regular (5-6)	Insuficiente (0-4)
+INSERT	Executa e explica com clareza	Executa com pequenas dúvidas	Precisa de dicas	Não consegue executar
+SELECT	Executa e explica o filtro	Executa com pequenas dúvidas	Precisa de dicas	Não consegue executar
+UPDATE	Executa e explica o fluxo	Executa com pequenas dúvidas	Precisa de dicas	Não consegue executar
+DELETE	Executa e explica a confirmação	Executa com pequenas dúvidas	Precisa de dicas	Não consegue executar
+Segurança (SQL Injection)	Explica e aponta no código	Explica superficialmente	Sabe que usa mas não explica	Não sabe
+Segurança (XSS)	Explica htmlspecialchars()	Menciona proteção	Confunde com SQL Injection	Não sabe
+Código	Aponta e explica tudo	Aponta mas não explica	Não encontra no código	Não sabe
+Comunicação	Clara, segura, didática	Clara	Confusa	Não consegue se expressar
+
+
+Material de Apoio
+
+Para os alunos
+Roteiro de estudos:
+INSERT: INSERT INTO tabela (campo1, campo2) VALUES (?, ?)
+SELECT: SELECT * FROM tabela WHERE campo LIKE ?
+UPDATE: UPDATE tabela SET campo1 = ?, campo2 = ? WHERE id = ?
+DELETE: DELETE FROM tabela WHERE id = ?
+Prepared Statements: prepare(), bind_param(), execute()
+htmlspecialchars() com ENT_QUOTES e UTF-8
+Diferença entre GET e POST
+confirm() em JavaScript
+Exercícios sugeridos:
+Criar um CRUD completo do zero
+Reescrever a exclusão para POST
+Adicionar htmlspecialchars() em todas as saídas
+Implementar verificação de affected_rows
+Criar README.md
+Links úteis:
+Documentação PHP: https://www.php.net/manual/pt_BR/
+MDN Web Docs: https://developer.mozilla.org/pt-BR/
+W3Schools MySQL: https://www.w3schools.com/php/php_mysql_intro.asp
+Regras da Recuperação
+Regra	Descrição
+Participação	Voluntária, mas recomendada
+Entrega	Individual, via Moodle
+Apresentação	Individual, em sala
+Prazo	Não haverá prorrogação
+Nota	Substitui a nota anterior (se maior)
+Frequência	Mínimo 75% para aprovação
+
+Resumo
+Item	Detalhe
+Objetivo	Recuperar aprendizagem e melhorar nota
+Tema	CRUD com INSERT, SELECT, UPDATE e DELETE
+Entrega	Sistema completo (peso 3)
+Oral	Demonstração + explicação (peso 7)
+Fórmula	NF = (Entrega × 0,3) + (Oral × 0,7)
+Aprovação	NF maior ou igual a 6,0
+Prazo de entrega	25/09/2026
+Data da oral	25/09/2026
+
+Considerações Finais
+A recuperação não é uma punição - é uma oportunidade de aprender e melhorar. O objetivo é que você:
+Domine as quatro operações do CRUD (INSERT, SELECT, UPDATE, DELETE);
+Compreenda a importância da segurança (SQL Injection e XSS);
+Desenvolva um sistema funcional, seguro e bem organizado;
+Demonstre domínio do código que escreveu;
+Se prepare para situações reais do mercado.
+Lembre-se:
+A entrega vale 30% da nota.
+A oral vale 70% da nota.
+Sem a oral, a aprovação é impossível para a maioria.
+Prepare-se bem e boa sorte.
+Prof. Wendell Bento Geraldes
+Desenvolvimento de Sistemas para Web
+Câmpus Luziânia - IFG
+"A recuperação não é uma segunda chance. É uma nova oportunidade de aprender."
